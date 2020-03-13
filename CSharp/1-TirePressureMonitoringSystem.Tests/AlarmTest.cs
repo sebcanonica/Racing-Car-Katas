@@ -1,16 +1,16 @@
 
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace TDDMicroExercises.TirePressureMonitoringSystem
 {
-    [TestFixture]
     public class AlarmTest
     {
-        [Test]
+        [Fact]
         public void Foo()
         {
             Alarm alarm = new Alarm();
-            Assert.AreEqual(false, alarm.AlarmOn);
+            alarm.AlarmOn.Should().BeFalse();
         }
     }
 }
