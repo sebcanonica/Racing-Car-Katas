@@ -9,7 +9,7 @@ namespace TDDMicroExercises.TirePressureMonitoringSystem
         [Fact]
         public void Nominal()
         {
-            Alarm alarm = new TestableAlarm(17);
+            Alarm alarm = new Alarm(new FakeSensor(17));
             alarm.Check();
             alarm.AlarmOn.Should().BeFalse();
         }
@@ -17,21 +17,21 @@ namespace TDDMicroExercises.TirePressureMonitoringSystem
         [Fact]
         public void Error()
         {
-            Alarm alarm = new TestableAlarm(40);
+            Alarm alarm = new Alarm(new FakeSensor(40));
             alarm.Check();
             alarm.AlarmOn.Should().BeTrue();
         }
 
-        class TestableAlarm : Alarm
+        class FakeSensor : ISensor
         {
             private int v;
 
-            public TestableAlarm(int v)
+            public FakeSensor(int v)
             {
                 this.v = v;
             }
 
-            protected override double GetPsiPressureValue()
+            public double PopNextPressurePsiValue()
             {
                 return v;
             }
